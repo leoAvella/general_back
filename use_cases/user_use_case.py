@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 from datetime import datetime
 import bcrypt
-from schemas.user import UserCreate, User, UserParams
+from schemas.user import UserCreate, User, UserParams,UserUpdate
 from db.models.user_model import UserModel
 from utils.query_utils import QuertUtils
 from schemas.table import  TableResponse
@@ -24,3 +24,5 @@ class UserUseCase:
         user.password = hashed_password.decode("utf-8")     
         return self.query_utils.save_model(user.dict(), UserModel)
 
+    def update_user(self, id: int, user: UserUpdate):
+        return self.query_utils.update_model(id, user.dict(), UserModel)

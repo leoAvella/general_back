@@ -12,6 +12,7 @@ class UserModel(Base):
     email_verified_at = Column(String)
     password = Column(String, nullable=False)
     remember_token = Column(String)
+    created_at = Column(String)
     updated_at = Column(String)
     status = Column(String)
     image = Column(String)

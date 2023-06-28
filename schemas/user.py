@@ -4,6 +4,11 @@ from pydantic import BaseModel,Field
 from .table import TableParams 
 
 
+class UserUpdate(BaseModel):
+    name: str
+    image: Optional[str]
+
+
 class UserCreate(BaseModel):
     name: str
     email: str  

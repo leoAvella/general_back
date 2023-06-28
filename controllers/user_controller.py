@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from db import database
-from schemas.user import User, UserCreate, UserParams
+from schemas.user import User, UserCreate, UserParams,UserUpdate
 from schemas.table import TableResponse
 from use_cases.user_use_case import UserUseCase
 from utils.jwt import Jwt
@@ -15,6 +15,10 @@ def get_user(id: int, db: Session = Depends(database.get_db_connection), jwt = D
 @router.post('/', response_model=User)
 def create_user(user: UserCreate, db: Session = Depends(database.get_db_connection), jwt = Depends(Jwt.verify_token)):
     return UserUseCase(db).create_user(user)
+
+@router.put('/{id}', response_model=User)
+def update_user(id: int, user: UserUpdate, db: Session = Depends(database.get_db_connection), jwt = Depends(Jwt.verify_token)):
+    return UserUseCase(db).update_user(id, user)
 
 @router.get('/all/', response_model=TableResponse)
 def get_users(params: UserParams = Depends(), db: Session = Depends(database.get_db_connection), jwt = Depends(Jwt.verify_token)):
