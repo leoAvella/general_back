@@ -17,6 +17,7 @@ class TableParams(BaseModel):
 
 class TableResponse(TableParams):
     total_elements: int
+    total_pages: int
     content: List[Any]
         
     

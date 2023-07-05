@@ -6,7 +6,6 @@ from db.models.user_model import UserModel
 from utils.query_utils import QuertUtils
 from schemas.table import  TableResponse
 
-
 class UserUseCase:
     def __init__(self, db: Session):
         self.db = db
@@ -14,8 +13,7 @@ class UserUseCase:
 
     def get_users(self, params: UserParams)->TableResponse:
         return self.query_utils.get_data_table(params, UserModel, User)
-
-    
+ 
     def get_user(self, id: int):
         return self.db.query(UserModel).filter_by(id=id).first()
 
