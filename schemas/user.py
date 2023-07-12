@@ -1,6 +1,6 @@
 from datetime import datetime
 from typing import Optional
-from pydantic import BaseModel,Field
+from pydantic import BaseModel, EmailStr,Field
 from .table import TableParams 
 
 
@@ -10,10 +10,10 @@ class UserUpdate(BaseModel):
 
 
 class UserCreate(BaseModel):
-    name: str
-    email: str  
-    password: str
-    image: Optional[str]
+    name: str = Field(..., min_length=8, max_length=20, example="JohnDoe", description="The name must be between 8 and 20 characters.")
+    email: EmailStr = Field(..., example="johndoe@example.com", description="Please provide a valid email address.")
+    password: str = Field(..., example="password123", description="The password must be provided.")
+    image: Optional[str] = Field(None, example="https://example.com/profile.jpg", description="Optional profile image URL.")
     
 class User(BaseModel):
     id: Optional[int]
