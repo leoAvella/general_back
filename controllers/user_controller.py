@@ -1,12 +1,14 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
-from db import database
+from db import DBConnection
 from schemas.user import User, UserCreate, UserParams,UserUpdate
 from schemas.table import TableResponse
 from use_cases.user_use_case import UserUseCase
 from utils.jwt import Jwt
 
 router = APIRouter(prefix='/user', tags=["User"] )
+
+database = DBConnection()
 
 @router.get('/{id}', response_model=User)
 def get_user(id: int, db: Session = Depends(database.get_db_connection), jwt = Depends(Jwt.verify_token)):
