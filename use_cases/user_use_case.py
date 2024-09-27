@@ -1,10 +1,14 @@
-from sqlalchemy.orm import Session
 from datetime import datetime
+from typing import Optional, Type
+
 import bcrypt
-from schemas.user import UserCreate, User, UserParams,UserUpdate
+from sqlalchemy.orm import Session
+
 from db.models.user_model import UserModel
+from schemas.table import TableResponse
+from schemas.user import User, UserCreate, UserParams, UserUpdate
 from utils.query_utils import QuertUtils
-from schemas.table import  TableResponse
+
 
 class UserUseCase:
     def __init__(self, db: Session):
@@ -14,8 +18,8 @@ class UserUseCase:
     def get_users(self, params: UserParams)->TableResponse:
         return self.query_utils.get_data_table(params, UserModel, User)
  
-    def get_user(self, id: int):
-        return self.db.query(UserModel).filter_by(id=id).first()
+    def get_user(self, id: int) -> Optional[UserModel]:
+        return self.query_utils.get_model_by_id(id, UserModel)
 
     def create_user(self, user: UserCreate):
         hashed_password = bcrypt.hashpw(user.password.encode("utf-8"), bcrypt.gensalt())

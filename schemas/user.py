@@ -14,6 +14,7 @@ class UserCreate(BaseModel):
     email: str
     password: str
     image: Optional[str]
+    
 class User(BaseModel):
     id: Optional[int]
     name: Optional[str]

@@ -1,16 +1,22 @@
 from enum import Enum
-from typing import Optional
+from typing import Any, Dict, List, Optional
+
 from pydantic import BaseModel
-from typing import Dict, Any, List
+
 
 class SortOption(str, Enum):
     ASC = 'ASC'
     DESC = 'DESC'
 
+class SizeOption(str, Enum):
+    TEN = 10
+    TWENTY = 20
+    FIFTY = 50
 
 
 class TableParams(BaseModel):
     page: int = 0
+    #size: SizeOption = SizeOption.TEN
     size: int = 10
     sort: SortOption = SortOption.ASC
     sortby: Optional[str]
